@@ -66,22 +66,38 @@ app.post("/addSheep", async (req, res) => {
   const newSheep = req.body;
   //console.log(req.body);
   await connectDb.db("farm").collection("sheep").insertOne(
-  //newSheep 
-    {
-      "number": "GB22454","gender":"2","birth_date":new Date("2023-02-04"), "mother":"JG14526", "father":"JG14526", "registration_date":new Date("2023-03-04"), "breed":"Skudų"}
+  newSheep 
+    // {
+    //   "number": "GB22454","gender":"2","birth_date":new Date("2023-02-04"), "mother":"JG14526", "father":"JG14526", "registration_date":new Date("2023-03-04"), "breed":"Skudų"}
       );
   connectDb.close();
   res.json("Sheep added");
 });
 
-app.post("/addMedicines", async (req, res) => {
+app.get("/meds", async (req, res) => {
+   try {
+    const connectDb = new MongoClient(DBURL);
+    const data = await connectDb
+      .db("farm")
+      .collection("medicines")
+      .find()
+      .toArray();
+
+    connectDb.close();
+    return res.send(data);
+  } catch (err) {
+    res.status(500).send({ err });
+  }
+});
+
+app.post("/addMeds", async (req, res) => {
   const connectDb = new MongoClient(DBURL);
-  const newMedicines = req.body;
+  const newMeds = req.body;
   //console.log(req.body);
   await connectDb.db("farm").collection("medicines").insertOne(
-  //newMedicines 
-    {
-      "name": "aaa","description":"Nuo kirminu","dosage":"0,5g 1kg svoriui "}
+  newMeds 
+    // {
+    //   "name": "aaa","description":"Nuo kirminu","dosage":"0,5g 1kg svoriui "}
       );
   connectDb.close();
   res.json("Medicines added");
@@ -89,12 +105,12 @@ app.post("/addMedicines", async (req, res) => {
 
 app.post("/addBirth", async (req, res) => {
   const connectDb = new MongoClient(DBURL);
-  const newMedicines = req.body;
+  const newBirth = req.body;
   //console.log(req.body);
   await connectDb.db("farm").collection("births").insertOne(
-  //newMedicines 
-    {
-      "number": "LF12345","date":new Date("2023-02-04"), "lambs_number":2, "notes":"ne iskarto atleido piena"}
+ newBirth 
+    // {
+    //   "number": "LF12345","date":new Date("2023-02-04"), "lambs_number":2, "notes":"ne iskarto atleido piena"}
       );
   connectDb.close();
   res.json("Birth added");
@@ -102,30 +118,31 @@ app.post("/addBirth", async (req, res) => {
 
 app.post("/addTreatment", async (req, res) => {
   const connectDb = new MongoClient(DBURL);
-  const newMedicines = req.body;
+  const newTreatment = req.body;
   //console.log(req.body);
   await connectDb.db("farm").collection("treatment").insertOne(
-  //newMedicines 
-    {
-      "number": "LF12378","start":new Date("2023-04-08"), "finish":new Date("2023-04-08"), "medicine":"bbb", "dosage":"3ml", "notes":"nuo kirminu"}
+  newTreatment 
+    // {
+    //   "number": "LF12378","start":new Date("2023-04-08"), "finish":new Date("2023-04-08"), "medicine":"bbb", "dosage":"3ml", "notes":"nuo kirminu"}
       );
   connectDb.close();
   res.json("Treatment added");
 });
 
 
-app.delete("/deleteSheep/:id", async (req, res) => {
+app.delete("/deleteSheep/:number", async (req, res) => {
   const connectDb = new MongoClient(DBURL);
   // const deleteProduct = ObjectIDreq.params.id;
   //console.log(ObjectId("6465148b1fb0b609f78480b7") + "obJJJ");
+  //console.log(req.params.number + " obJJJ");
   await connectDb
     .db("farm")
     .collection("sheep")
     .deleteOne(
      
-     // { _id: new ObjectID(req.params.id) }
+      //{ _id: new ObjectID(req.params.id) }
 
-     {"number": "GB22454" }
+     {"number": req.params.number }
     );
   connectDb.close();
   res.json("Sheep deleted");
