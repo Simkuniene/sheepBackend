@@ -1,28 +1,28 @@
 # sheepBackend
-Ši sistema skirta avių ūkio turėtojams. FrontEnd kodą galite rasti: https://github.com/Simkuniene/sheepFrontend
-Administratoriai galės kurti/peržiūrėti duomenis apie avis, jų produktyvumą, gydymui naudotus vaistus ir jų išlauką prieš skerdimą ar pieno naudojimą maistui.
-Backend'as rašytas su NodeJS.
-Duomenų bazė: MongoDB.
+This system is designed for sheep farmers. You can find the FrontEnd code here: https://github.com/Simkuniene/sheepFrontend Administrators will be able to create/view data about sheep, their productivity, medications used for treatment, and their condition before shearing or using milk for food. The Backend is written using NodeJS, and the database used is MongoDB.
 
-Resursai, kuriuos palaiko ši aplikacija:
+Resources supported by this application:
 
-GET
-/sheep paduoda visas avis iš 'sheep' lentelės.
-/sheep/:number paduoda duomenis apie konkrečią avį, pagal avies numerį iš 'sheep' lentelės.
-/meds paduoda visus vaistus iš 'medicines' lentelės.
-/births/:number paduoda duomenis apie avies, kurios numeris nurodytas, gimdymus iš 'births' lentelės.
-/treatment/:number paduoda duomenis apie avies, kurios numeris nurodytas, naudotus vaistus iš 'treatment' lentelės.
+GET /sheep retrieves all sheep from the 'sheep' table.
 
+GET /sheep/:number retrieves data about a specific sheep based on its number from the 'sheep' table.
 
-POST 
-/addSheep įrašo duomenis apie avį į 'sheep' lentelę.
-/addMeds įrašo duomenis apie medikamentą į 'medicines' lentelę.
-/addBirth įrašo duomenis apie gimdymą į 'births' lentelę.
-/addTreatment įrašo duomenis apie naudotus vaistus į 'treatment' lentelę.
+GET /meds retrieves all medications from the 'medicines' table.
 
-DELETE
-/deleteSheep/:id ištrina avį pagal ID iš 'sheep' lentelės.
-/deleteMed/:id ištrina vaistą pagal ID iš 'medicines' lentelės.
+GET /births/:number retrieves data about the births of a sheep specified by the given number from the 'births' table.
 
-PUT
-/sheepupdate/:number atnaujina duomenis apie avį 'sheep' lentelėje.
+GET /treatment/:number retrieves data about the medications used for a sheep specified by the given number from the 'treatment' table.
+
+POST /addSheep adds sheep data to the 'sheep' table.
+
+POST /addMeds adds medication data to the 'medicines' table.
+
+POST /addBirth adds data about a birth to the 'births' table.
+
+POST /addTreatment adds data about medications used to the 'treatment' table.
+
+DELETE /deleteSheep/:id deletes a sheep with the given ID from the 'sheep' table.
+
+DELETE /deleteMed/:id deletes a medication with the given ID from the 'medicines' table.
+
+PUT /sheepupdate/:number updates data about a sheep in the 'sheep' table.
